@@ -1,0 +1,45 @@
+<div class="kyc-container">
+
+  <h1>KYC Verification</h1>
+
+  <p class="status">{{ statusMessage }}</p>
+
+  <!-- STEP 1 — Document selection -->
+  <div class="doc-select" *ngIf="!journey">
+    <button (click)="selectDocument('DRIVING_LICENSE')"
+            [class.active]="selectedDocType === 'DRIVING_LICENSE'">
+      Driving Licence
+    </button>
+
+    <button (click)="selectDocument('PASSPORT')"
+            [class.active]="selectedDocType === 'PASSPORT'">
+      Passport
+    </button>
+
+    <button class="start-btn" (click)="startKyc()" [disabled]="!selectedDocType">
+      Start KYC
+    </button>
+  </div>
+
+  <!-- STEP 2 — The SDK container -->
+  <div id="idscanContainer" class="sdk-container"></div>
+
+  <!-- STEP 3 — Extracted details panel -->
+  <div *ngIf="extracted.fullName" class="results-panel">
+
+    <h2>Extracted Details</h2>
+
+    <p><strong>Full Name:</strong> {{ extracted.fullName }}</p>
+    <p><strong>Licence Number:</strong> {{ extracted.licenceNumber }}</p>
+    <p><strong>Address:</strong> {{ extracted.address }}</p>
+    <p><strong>Date of Birth:</strong> {{ extracted.dob }}</p>
+    <p><strong>Issue Date:</strong> {{ extracted.issueDate }}</p>
+
+  </div>
+
+  <div *ngIf="journeyCompleted" class="final-panel">
+    <h2>KYC Completed ✔</h2>
+    <p>You may now continue to onboarding.</p>
+  </div>
+
+</div>
